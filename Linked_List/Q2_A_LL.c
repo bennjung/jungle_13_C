@@ -104,6 +104,65 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+	
+	ListNode *cur1;
+	ListNode *cur2;
+	// ListNode *l2;
+	cur1 = ll1->head;
+	cur2 = ll2->head;
+	
+
+	
+	// 0. 루프 돌면서 병합???? 
+	while (cur1 != NULL){
+		// printf("Before current pointer 1 : %p\n", cur1);
+		// printf("Before current pointer 2 : %p\n", cur2);
+		// printf("============================================\n");
+		ListNode *temp1 = cur1->next;
+		ListNode *temp2 = cur2->next;
+
+		
+		
+
+		if (cur2 != NULL && cur1 != NULL ){
+			// 첫번쨰 리스트
+			
+			cur1->next = cur2;
+			cur2->next = temp1;
+			
+			// printf("After current pointer 1 : %p\n", cur1);
+			// printf("After current pointer 2 : %p\n", cur2);
+			// printf("============================================\n");
+		}
+
+		if ( temp1 == NULL || temp2 == NULL){
+			// list2 next가 없음 
+			if (temp1 == NULL){
+				ll2->head = temp2;
+				return;
+			}
+			else {
+				ll2->head = NULL;
+				return;
+			}
+			
+		}
+
+		
+		
+		cur1 = temp1;
+		cur2 = temp2;
+		
+		
+
+		// 순환참조 ?
+		
+		
+	}
+	
+	
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

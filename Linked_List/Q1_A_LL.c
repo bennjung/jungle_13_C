@@ -51,6 +51,8 @@ int main()
 	printf("3: Print sorted linked list:\n");
 	printf("0: Quit:");
 
+
+	
 	while (c != 0)
 	{
 		printf("\nPlease input your choice(1/2/3/0): ");
@@ -62,6 +64,9 @@ int main()
 			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
 			j = insertSortedLL(&ll, i);
+			if (j == -1){
+				printf("same values \n");
+			}
 			printf("The resulting linked list is: ");
 			printList(&ll);
 			break;
@@ -71,7 +76,7 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			//removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -91,6 +96,77 @@ int main()
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
+	
+
+	ListNode *pre, *cur;
+
+	
+	// If empty list or inserting first node, need to update head pointer
+	// if (ll->head == NULL ){
+	// 	printf("[DEBUG] HEAD IS NULL! \n");
+	// 	cur = ll->head; // ll->head = cur 이어야하는거 아님? 
+	// 	ll->head = malloc(sizeof(ListNode));
+	// 	ll->head->item = item;
+	// 	ll->head->next = cur;
+	// 	cur->next = NULL;
+		
+	// 	ll->size++;
+	// 	return 50000;
+	// } 
+	
+	if (ll->head == NULL){
+		insertNode(ll,0, item);
+		return 0;
+	}
+	// printf("[DEBUG] cur list value : %d \n", cur->item); // segfault
+	// 0. 새로 넣을 값 중복 존재 확인
+	cur = ll->head;
+	while (cur != NULL) {
+		if (cur-> item == item){
+			return -1;
+		}
+		cur = cur->next;
+	}
+
+	// 1. 새로 넣을 값 위치 확인 
+	int uidx = 0;
+	cur = ll->head;
+	while (cur != NULL) {
+		// 1.1 현재 노드 값이 새로 넣을 값보다 큼 
+		if (cur->item > item){
+			if (cur->next == NULL || uidx <1){
+				insertNode(ll,uidx,item);
+				return uidx;
+			}
+			
+			// 1.1.1 앞 노드 찾기 
+			pre = findNode(ll, uidx-1);
+    			
+			ListNode *tmp = malloc(sizeof(ListNode));
+			tmp->item = item;
+			
+			pre->next = tmp;
+			tmp->next = cur;
+			ll->size++;
+			return uidx;	
+		}
+		
+		uidx++;
+		cur = cur->next;
+		
+	
+	}
+	// 1.2 새로 넣을 값이 현재 노드 값 보다 큼 Node: 2 vs Val: 3 
+	//printf("%d", uidx);
+	if (cur == NULL){
+		insertNode(ll,uidx,item);
+		return uidx;
+	}
+
+	return 0;	
+
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -170,11 +246,12 @@ int insertNode(LinkedList *ll, int index, int value){
 
 	// Find the nodes before and at the target position
 	// Create a new node and reconnect the links
-	if ((pre = findNode(ll, index - 1)) != NULL){
+	// 이게 문젠가 씨발 
+	if ((pre = findNode(ll, index-1 )) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
 		pre->next->item = value;
-		pre->next->next = cur;
+		pre->next->next = cur; 
 		ll->size++;
 		return 0;
 	}
