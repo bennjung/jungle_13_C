@@ -111,7 +111,9 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 	cur1 = ll1->head;
 	cur2 = ll2->head;
 	
-
+	if (cur2 == NULL){
+		return ;
+	}
 	
 	// 0. 루프 돌면서 병합???? 
 	while (cur1 != NULL){
@@ -129,7 +131,8 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 			
 			cur1->next = cur2;
 			cur2->next = temp1;
-			
+			ll1->size++;
+			ll2->size--;
 			// printf("After current pointer 1 : %p\n", cur1);
 			// printf("After current pointer 2 : %p\n", cur2);
 			// printf("============================================\n");
@@ -152,10 +155,6 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 		
 		cur1 = temp1;
 		cur2 = temp2;
-		
-		
-
-		// 순환참조 ?
 		
 		
 	}

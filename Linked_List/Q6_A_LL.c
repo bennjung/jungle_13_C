@@ -88,7 +88,62 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+    // ptr head가 어떤값이지? 
+	// 포인터를 가르키는 포인터 
+	ListNode* temp = *ptrHead;
+	// 1. ptrHead == llhead
+	if(temp->next == NULL) {
+		return -1;
+	} 
+	// 리스트 순회해서 가장 큰 값 찾아내서 헤더와 바꾸기 
+	
+	int idx = 0;
+	int pidx = 0;
+	ListNode* cur = *ptrHead;
+	int mval = temp->item;
+	ListNode* mnode = temp;
+	ListNode* mprev = *ptrHead;
+	// 1. max 값 찾을때마다 mnode 구조체 재할당
+	while (cur != NULL){
+		if (cur->item > mval){
+			// debug 
+			pidx = idx;
+			mnode = cur;
+			mval = cur->item;
+		}
+		idx++;
+		cur = cur->next;
+	}
+	if (mnode == *ptrHead){
+		return 0;
+	}
+	printf("현재 최대 노드 : %d\n", mnode->item);
+	// 2. mprev 찾기 
+	while (pidx-1 > 0){
+		mprev = mprev->next;
+		if (mprev == NULL){
+			break;
+		}
+		pidx--;
+	}
+
+	printf("이전 최대 노드 : %d\n", mprev->item);
+	// 3. 헤더<->Mnode 스왑 
+	// 3.1. 맥스값의 직전노드가 맥스의 다음값을 가르킴 // tc [1 2 9] 
+	mprev->next = mnode->next; // 2 => 1 
+	
+	// 3.2. 맥스노드가 맨앞 노드를를 가르킴
+	mnode->next = temp; // 1 => NULL
+	
+	// 3.3 Mnode 헤더 변경
+	*ptrHead = mnode;
+	
+	return 0;
+
+
+	
+	
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

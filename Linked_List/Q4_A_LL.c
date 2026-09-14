@@ -86,7 +86,65 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	ListNode* cur;
+	
+	cur = ll->head;
+	int even = 0;
+	
+	// 1. 짝수 노드 카운팅
+	while (cur != NULL){
+		
+		if (cur->item %2 == 0 ) {
+			even++;
+		}
+		cur = cur->next;
+	}
+	// printf("홀수 갯수 %d\n", odd);
+	if (even == ll->size) return;
+	// 2. 루핑 
+	int lp = even; 
+	while (lp > 0 ){
+		ListNode* tcur;
+		ListNode* targt;
+		
+		tcur = ll->head; 
+		// 2.b 노드 스왑 
+		int idx = 0;
+		int lidx = ll->size -2;
+		while (tcur != NULL){
+			if (tcur->item % 2 ==0 ){
+				// 2.a.1 : 맨 앞에 있을때 (tcur->next != NULL... )
+				if (idx < 1){
+					
+					ll->head = tcur->next;
+					targt = tcur;
+					targt->next = NULL; 
+					
+					// printf("현재 노듯값 : %d\n", targt->item);
+					break;
+				}
+				else { // 2.a.2 : 중간에 끼여있을때
+					ListNode* prev = findNode(ll, idx-1);
+					prev->next = tcur->next;
+					targt = tcur;
+					targt->next = NULL;
+					// printf("현재 인덱스: %d\n", idx);
+					// printf("현재 노듯값 : %d\n", targt->item);
+					break;
+				}
+			}
+			idx++;
+			tcur = tcur->next;
+		}
+		ListNode* tail = findNode(ll, lidx);
+		tail->next = targt;
+		lp--;
+		
+		
+
+	}
+
+	return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

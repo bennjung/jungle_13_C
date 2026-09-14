@@ -39,6 +39,7 @@ int removeNode(LinkedList *ll, int index);
 int main()
 {
 	int c, i;
+	c=100;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -103,6 +104,47 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	// 1. 리스트 길이 계산 
+	int flen = 0 , rlen = 0;
+	
+	int q = ll->size / 2;
+	int r = ll->size - q;
+
+	if (q >= r ){
+		flen = q;
+		rlen = r;
+	}
+	else {
+		flen = r;
+		rlen = q;
+	}
+	
+	// 2.1 front list 나누기 (insertNode 쓰기)
+	ListNode* temp;
+
+	for(int i=0; i<flen; i++){
+		temp = findNode(ll,i);
+		int val = temp->item;
+		insertNode(resultFrontList, i, val);
+		
+	}
+	printf("After FRONT size %d\n", resultFrontList->size);
+	// 2.2 back(rear) list 나누기 
+	for(int j=0; j<rlen; j++){
+		temp = findNode(ll,j+flen);
+		printf("REAR temp value %d\n", temp->item);
+		int val = temp->item;
+		insertNode(resultBackList, j, val);
+	}
+	printf("After REAR size %d\n", resultBackList->size);
+	
+	return;
+
+	
+	
+	
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

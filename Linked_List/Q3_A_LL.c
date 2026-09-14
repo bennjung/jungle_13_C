@@ -86,7 +86,95 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	ListNode* cur;
+	
+	cur = ll->head;
+	int odd = 0;
+	// 현재 리스트가 짝 - 홀 상태인가? -> 타겟 홀수 노드 찾기 
+	// 1. 홀수 노드 카운팅
+	while (cur != NULL){
+		// 
+		if (cur->item %2 != 0 ) {
+			// before : cur->next != NULL
+			// if(cur->next != NULL){
+			// 	odd++;
+			// }
+			odd++;
+		}
+		cur = cur->next;
+	}
+	// printf("홀수 갯수 %d\n", odd);
+	if (odd == ll->size) return;
+	// 2. 루핑 
+	int lp = odd; // 필요 없을수도 있음.
+	while (lp > 0 ){
+		ListNode* tcur;
+		ListNode* targt;
+		
+		// 2.a 리스트 상태 확인
+		// tcur = ll->head;
+		// bool valid = true;
+		// // 2.a.1 시작점 잡기
+		// while (tcur != NULL){
+		// 	if (tcur->item % 2 !=0 ){
+		// 		break;
+		// 	}
+		// 	tcur = tcur->next;
+		// }
+		// // 2.a.2 Null까지 못가면? 스왑해야하는 노드가 있음
+		// while (tcur != NULL){
+		// 	if (tcur->item %2 == 0){
+		// 		valid = false;
+		// 		break;
+		// 	}
+		// 	tcur = tcur->next;
+		// }
+
+
+		// if (valid = true){
+		// 	return;
+		// }
+
+		
+		tcur = ll->head; 
+		// 2.b 노드 스왑 
+		int idx = 0;
+		int lidx = ll->size -2;
+		while (tcur != NULL){
+			if (tcur->item % 2 !=0 ){
+				// 2.a.1 : 맨 앞에 있을때 (tcur->next != NULL... )
+				if (idx < 1){
+					
+					ll->head = tcur->next;
+					targt = tcur;
+					targt->next = NULL; 
+					
+					printf("현재 노듯값 : %d\n", targt->item);
+					break;
+				}
+				else { // 2.a.2 : 중간에 끼여있을때
+					ListNode* prev = findNode(ll, idx-1);
+					prev->next = tcur->next;
+					targt = tcur;
+					targt->next = NULL;
+					printf("현재 인덱스: %d\n", idx);
+					printf("현재 노듯값 : %d\n", targt->item);
+					break;
+				}
+			}
+			idx++;
+			tcur = tcur->next;
+		}
+		ListNode* tail = findNode(ll, lidx);
+		tail->next = targt;
+		lp--;
+		// // 2.b 바꾼후 리스트 상태 확인
+		
+
+	}
+
+	return;
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

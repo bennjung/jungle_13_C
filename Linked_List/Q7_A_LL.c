@@ -88,7 +88,44 @@ int main()
 void RecursiveReverse(ListNode **ptrHead)
 {
 	/* add your code here */
+
+	// Set 2 pointers 
+	
+	ListNode* ft = *ptrHead;
+	ListNode* rest = ft->next; // ft->next or *prtHead?
+	// ListNode* nt = ft->next;
+	if (rest== NULL){
+		
+		return;
+	}
+	
+	
+	// 지역변수 rest의 복사본 
+	RecursiveReverse(&rest);
+	
+	// base case 이후 .. 마지막 <-> 직전 노드  
+	 // 5 next -> 4 [SEGFAULT!]
+	ft->next->next = ft;
+	// 직전노드의 다음이 NULL
+	ft->next = NULL; // 4-> next null
+	*ptrHead = rest; // ft = *ptrHead 하면 유실됨.. 
+	
+	
+	// printf("After REST numb : %d /", rest->item);
+	// printf("REST pt addr : %p\n", rest);
+	// printf("After FIRST numb :%d / ", ft->item);
+	// printf("FIRST pt addr: %p\n", ft);
+	// printf("After Headr PT ADDR  : %p\n", *ptrHead);
+
+	
+
+
+	
+
+	
+
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
