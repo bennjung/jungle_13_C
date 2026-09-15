@@ -113,6 +113,17 @@ int main()
 void reverse(Queue *q)
 {
 /* add your code here */
+	// 0. 임시 스택 초기화
+	Stack* stk = malloc(sizeof(Stack));
+	// 1. 큐 비우기 
+	while (!isEmptyQueue(q)){
+		int val = dequeue(q);
+		push(stk, val);
+	}
+	// 2. 스택 pop -> enque
+	while (!isEmptyStack(stk)){
+		enqueue(q, pop(stk));
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

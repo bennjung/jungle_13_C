@@ -104,7 +104,56 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	/* add your code here */
+	Stack* stk = malloc(sizeof(Stack));
+	int idx = 0 ;
+	while(expression[idx] != '\0'){
+		char cs = expression[idx];
+		if (cs == '[' || cs == '{' || cs == '(') {
+			int salt = 0;
+			if (cs == '[' ) salt = 1;
+			else if (cs == '{' ) salt = 2;
+			else salt = 3;
+				
+			// printf("current char : %c ,  salt : %d", cs, salt);
+			push(stk, salt);
+		}
+		else {
+			if (isEmptyStack(stk)){
+				return 1;
+			}
+			int tt = peek(stk);
+			// printf("%d", tt);
+			if (cs == ']' ){
+				if (tt != 1){
+					// printf("[ Does not match ]");
+					break;
+				} 
+				else pop(stk);
+			}
+			else if (cs == '}' ) {
+				if (tt != 2) {
+					// printf("{ Does not match }");
+					break;
+				}
+				
+				else pop(stk);
+			}
+			else { // cs == ')'
+				if (tt != 3) {
+					// printf("( Does not match )");
+					break;
+				}
+				else pop(stk);
+			}
+
+		}
+		idx++;
+	}
+	if (!isEmptyStack(stk)) return 1;
+	else return 0; // False 
+
+	
 }
 
 ////////////////////////////////////////////////////////////
@@ -164,7 +213,7 @@ int peek(Stack *s){
 int isEmptyStack(Stack *s)
 {
 	if ((s->ll).size == 0)
-		return 1;
+		return 1; // 
 	else
 		return 0;
 }

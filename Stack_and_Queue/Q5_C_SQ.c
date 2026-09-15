@@ -110,6 +110,20 @@ int main()
 void recursiveReverse(Queue *q)
 {
 /* add your code here */
+	// base case? 
+	// q가 빌때? 
+	
+	int size = q->ll.size;
+	if (size < 1){
+		return;
+	}
+	
+	// 1. deque 
+	int tnumb = dequeue(q);	
+	recursiveReverse(q);
+	enqueue(q,tnumb);
+
+
 }
 
 //////////////////////////////////////////////////////////////////

@@ -104,6 +104,26 @@ int main()
 int isStackPairwiseConsecutive(Stack *s)
 {
   /* add your code here */
+  // 연속된 순서 확인? 
+  	while (!isEmptyStack(s)){
+		int numb1 = pop(s);
+		int numb2 = 0;
+		if (isEmptyStack(s)){
+			return 0;
+		}
+		numb2 = peek(s);
+		
+		if (abs(numb1 - numb2) != 1){
+			return 0;
+		} 
+		else {
+			pop(s);
+		}
+	
+  	}
+	// return true 
+	return 1;
+  
 }
 
 //////////////////////////////////////////////////////////////////////////////////

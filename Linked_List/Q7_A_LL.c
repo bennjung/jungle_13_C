@@ -117,7 +117,14 @@ void RecursiveReverse(ListNode **ptrHead)
 	// printf("FIRST pt addr: %p\n", ft);
 	// printf("After Headr PT ADDR  : %p\n", *ptrHead);
 
+	// base case 이후 마지막 <-> 직전 노드 (Wrong)
+	// rest->next = ft; 
+	// ft->next = NULL; 
+	// *ptrHead = rest; // Affect parent's rest status
+
 	
+
+		
 
 
 	
