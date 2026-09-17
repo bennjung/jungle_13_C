@@ -32,6 +32,9 @@ typedef struct _stack{
 // You should not change the prototypes of these functions
 int identical(BTNode *tree1, BTNode *tree2);
 
+int traverse(BTNode *tree);
+
+
 BTNode* createBTNode(int item);
 
 BTNode* createTree();
@@ -117,7 +120,60 @@ int identical(BTNode *tree1, BTNode *tree2)
 
 {
    /* add your code here */
+    // base case 
+    // 이게 아닌거 같은데.. 흠,, 어떻게 찾지? 
+    // 
+    // 트리 상태 체크 
+    if (tree1 == NULL && tree2 == NULL) return 1;
+    if (tree1 == NULL || tree2 == NULL) return 0 ;
+
+    // BASE CASE? why?
+    // 이라인은 뭘까? 
+    // int 와 NULL 을 비교하면 안됨?? 포인터와 int 비교 하면 문제 생김? 
+    // if (tree1->item == NULL && tree2->item == NULL ){
+    //     return 1;
+    // }
+    // // 이라인은 뭘까? 둘 다 NULL 이 아니니까 이 분기문에 걸림 
+    // if (tree1->item != NULL || tree2->item != NULL  ){
+    //     return 0;
+    // }
+    // 이라인은 뭘까?
+    if (tree1->item != tree2->item){
+        return 0;
+    }
+    // 이라인은 뭘까?
+    else {
+        int t1 = identical(tree1->left, tree2->left);
+        int t2 = identical(tree1->right, tree2->right);
+        // printf("current t1 value %d", t1);
+        // printf("current t2 value %d", t2);
+        return t1 * t2;
+    }
+
+    
+    
+    // if (tree1->left == NULL && tree1->right == NULL && tree2->left == NULL && tree2->right == NULL) {
+    //     return 1;
+    // }
+    // int t1 = identical(tree1->left, tree2->left);
+    // int t2 = identical(tree1->right, tree2->right);
+    // printf("Current tree 1 sub tree : %d\n", t1);
+    // printf("Current tree 2 sub tree :%d\n", t2);
+    // // 재귀가 싫다!
+    // if (t1 != t2){
+    //     return 0;
+    // }
+    // else {
+    //     return 1;
+    // }
+
+    
+
+   
+   
 }
+
+
 
 /////////////////////////////////////////////////////////////////////////////////
 

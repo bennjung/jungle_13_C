@@ -31,7 +31,7 @@ typedef struct _stack{
 
 // You should not change the prototypes of these functions
 int maxHeight(BTNode *node);
-
+int recur(BTNode* root, int ht);
 BTNode *createBTNode(int item);
 
 BTNode *createTree();
@@ -98,6 +98,54 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+    // 트리가 없음
+    if (node == NULL) return -1;
+
+    int height = 1;
+    if (node->left != NULL && node-> right != NULL){
+        int lth = recur(node->left, height);
+        int rth = recur(node->right, height);
+    
+        if (lth >= rth) return lth;
+        else return rth;
+    }
+    if (node->left == NULL && node->right != NULL){
+        return recur(node->right, height);
+    }
+    if (node->right == NULL && node->left != NULL){
+        return recur(node->left, height);
+    }
+    
+    
+
+}
+
+int recur(BTNode* root, int ht){
+    // base case
+    if (root->left == NULL && root->right == NULL){
+        return ht;
+    }
+    ht++;
+    int rt = 0;
+    int lt = 0;
+    if (root->left == NULL){
+        return recur(root->right, ht);
+    }
+    else if (root->right == NULL){
+        return recur(root->left, ht);
+
+    }
+    else {
+        rt = recur(root->right, ht);
+        lt = recur(root->left, ht);
+        int reslt = (lt >= rt) ? lt : rt ;    
+        return reslt;
+    }
+    
+    
+
+    
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

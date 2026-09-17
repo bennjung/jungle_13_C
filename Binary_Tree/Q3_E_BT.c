@@ -102,6 +102,27 @@ int countOneChildNodes(BTNode *node)
 
 {
     /* add your code here */
+    // Base case return 값???? 
+    if (node == NULL) return 0 ;
+
+    if (node->left == NULL && node-> right == NULL) return 0 ;
+    else {
+        // 두 짝 다 있음
+        if (node->left != NULL && node->right != NULL){
+            int lt = countOneChildNodes(node->left);
+            int rt = countOneChildNodes(node->right);
+            return lt+rt;
+        }
+        // 한짝만 있음 
+        if (node->left == NULL){
+            return countOneChildNodes(node->right)+1;
+        }
+        else if (node->right == NULL){
+            return countOneChildNodes(node->left)+1;
+        }
+
+    }
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -106,6 +106,12 @@ int main()
 void printSmallerValues(BTNode *node, int m)
 {
 	/* add your code here */
+    if (node == NULL) return;
+    // base case
+    if (node->left == NULL && node->right == NULL){
+        if (node->item < m) return;
+    }
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -104,11 +104,10 @@ void RecursiveReverse(ListNode **ptrHead)
 	RecursiveReverse(&rest);
 	
 	// base case 이후 .. 마지막 <-> 직전 노드  
-	 // 5 next -> 4 [SEGFAULT!]
-	ft->next->next = ft;
-	// 직전노드의 다음이 NULL
-	ft->next = NULL; // 4-> next null
-	*ptrHead = rest; // ft = *ptrHead 하면 유실됨.. 
+	// ft->next->next = ft;
+	// // 직전노드의 다음이 NULL
+	// ft->next = NULL; // 4-> next null
+	// *ptrHead = rest; // ft = *ptrHead 하면 유실됨.. 
 	
 	
 	// printf("After REST numb : %d /", rest->item);
@@ -118,9 +117,9 @@ void RecursiveReverse(ListNode **ptrHead)
 	// printf("After Headr PT ADDR  : %p\n", *ptrHead);
 
 	// base case 이후 마지막 <-> 직전 노드 (Wrong)
-	// rest->next = ft; 
-	// ft->next = NULL; 
-	// *ptrHead = rest; // Affect parent's rest status
+	rest->next = ft; 
+	ft->next = NULL; 
+	*ptrHead = rest; // Affect parent's rest status
 
 	
 
